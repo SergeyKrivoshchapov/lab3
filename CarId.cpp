@@ -1,6 +1,13 @@
 #include "CarId.h"
 
+#include <algorithm>
+
 std::unordered_set<std::string> CarId::car_ids;
+
+bool CarId::IsDigit(const std::string &id) {
+    return !id.empty() && std::all_of(id.begin(), id.end(), [](char c) {return std::isdigit(static_cast<unsigned char>(c));});
+}
+
 
 bool CarId::IsValidId(const std::string& id) { return car_ids.find(id) == car_ids.end(); }
 
