@@ -9,9 +9,10 @@ bool CarId::IsDigit(const std::string &id) {
 }
 
 
-bool CarId::IsValidId(const std::string& id) { return car_ids.find(id) == car_ids.end(); }
+bool CarId::IsValidId(const std::string& id) { return IsDigit(id) && car_ids.find(id) == car_ids.end(); }
 
 void CarId::ClaimId(const std::string &id) {
+    if (!IsDigit(id)) {throw std::invalid_argument("Id must contain digits");}
     if (!IsValidId(id)) { throw std::invalid_argument("Id already exists"); }
     car_ids.insert(id);
 }
