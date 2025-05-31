@@ -11,8 +11,6 @@ Car::Car(std::string& brand, std::string& model, int production_year, std::strin
     CarSelfWeight(car_self_weight),
     CarMaxWeight(car_max_weight),
     PeopleCapacity(people_capacity),
-    PeopleCount(0),
-    PeopleWeightSum(0),
     Power(power),
     FuelCapacity(fuel_capacity),
     FuelAmount(fuel_amount),
@@ -43,9 +41,7 @@ Car::Car(Car &&other_car) noexcept :
     FuelType(std::move(other_car.FuelType)),
     CarSelfWeight(other_car.CarSelfWeight),
     CarMaxWeight(other_car.CarMaxWeight),
-    PeopleCount(other_car.PeopleCount),
     PeopleCapacity(other_car.PeopleCapacity),
-    PeopleWeightSum(other_car.PeopleWeightSum),
     Power(other_car.Power),
     FuelAmount(other_car.FuelAmount),
     FuelCapacity(other_car.FuelCapacity),
@@ -60,24 +56,12 @@ int Car::getProductionYear() const { return ProductionYear; }
 std::string Car::getFuelType() const { return FuelType; }
 double Car::getCarSelfWeight() const { return CarSelfWeight; }
 double Car::getCarMaxWeight() const { return CarMaxWeight; }
-int Car::getPeopleCount() const { return PeopleCount; }
 int Car::getPeopleCapacity() const { return PeopleCapacity; }
-double Car::getPeopleWeightSum() const { return PeopleWeightSum; }
 double Car::getPower() const { return Power; }
 double Car::getFuelAmount() const { return FuelAmount; }
 double Car::getFuelCapacity() const { return FuelCapacity; }
 double Car::getFuelConsumption() const { return FuelConsumption; }
 std::string Car::getId() const { return Id; }
-
-void Car::setPeopleCount(int new_people_count) {
-    if (new_people_count < 0 || new_people_count > this -> PeopleCapacity) throw std::out_of_range("People capacity out of range");
-    this -> PeopleCount = new_people_count;
-}
-
-void Car::setPeopleWeightSum(double new_people_weight_sum) {
-    if (new_people_weight_sum < 0 || new_people_weight_sum > CarMaxWeight - CarSelfWeight) throw std::out_of_range("New people weight sum value is incorrect");
-    PeopleWeightSum = new_people_weight_sum;
-}
 
 void Car::setFuelAmount(double new_fuel_amount) {
     if (new_fuel_amount < 0 || new_fuel_amount > FuelCapacity) throw std::out_of_range("Fuel amount out of range");
@@ -89,7 +73,18 @@ double Car::calculateDistance() const {
     return distance;
 }
 
+void Car::addPerson(const Person &person) {
+    if (People.size() >= PeopleCapacity) throw std::out_of_range("People limit reached in car");
+
+    double new_people_weight_sum = getPeopleWeightSum() + person.getWeight();
+    if (new_people_weight_sum > CarMaxWeight) throw std::out_of_range("Car max weight reached in car");
+
+    if (People.find(person.getName()) != People.end()) throw std::invalid_argument("People already in car");
+
+    People.insert({person.getName(), person});
+}
+
+
 void Car::dropAll() {
-    this -> PeopleWeightSum = 0;
-    this -> PeopleCount = 0;
+    People.clear();
 }

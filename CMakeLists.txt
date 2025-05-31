@@ -7,4 +7,6 @@ add_executable(lab3 main.cpp
         Car.cpp
         Car.h
         CarId.cpp
-        CarId.h)
+        CarId.h
+        Person.cpp
+        Person.h)

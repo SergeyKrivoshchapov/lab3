@@ -1,6 +1,9 @@
 #pragma once
 #include "CarId.h"
+#include "Person.h"
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 class Car {
 private:
@@ -10,14 +13,13 @@ private:
     std::string FuelType;
     double CarSelfWeight;
     double CarMaxWeight;
-    int PeopleCount;
     int PeopleCapacity;
-    double PeopleWeightSum;
     double Power;
     double FuelAmount;
     double FuelCapacity;
     double FuelConsumption;
     std::string Id;
+    std::vector<std::string, double> People;
 public:
     Car(std::string& brand, std::string& model, int production_year, std::string& fuel_type, double car_self_weight, double car_max_weight, int people_capacity,
         double power, double fuel_amount, double fuel_capacity, double fuel_consumption, std::string& id);
@@ -35,17 +37,19 @@ public:
     double getCarMaxWeight() const;
     int getPeopleCount() const;
     int getPeopleCapacity() const;
-    double getPeopleWeightSum() const;
     double getPower() const;
     double getFuelAmount() const;
     double getFuelCapacity() const;
     double getFuelConsumption() const;
     std::string getId() const ;
 
-    void setPeopleCount(int new_people_count);
-    void setPeopleWeightSum(double new_people_weightsum);
     void setFuelAmount(double new_fuel_amount);
-
     double calculateDistance() const;
     void dropAll();
+
+    void addPerson(const Person& person);
+    void removePerson(const std::string& name);
+    std::vector<Person> getPersons() const;
+    double getPeopleWeightSum() const;
+    int getPeopleCount();
 };
