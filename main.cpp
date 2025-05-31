@@ -18,7 +18,7 @@ int main() {
         double fuel_amount = 70;
         double fuel_capacity = 80;
         double fuel_consumption = 7.2;
-        std::string id = "";
+        std::string id = "3141592";
 
         Car Car1(brand, model, year, fuel_type, self_weight, max_weight, people_capacity, power, fuel_amount, fuel_capacity, fuel_consumption, id);
 

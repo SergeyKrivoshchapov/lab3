@@ -75,13 +75,13 @@ void Car::setPeopleCount(int new_people_count) {
 }
 
 void Car::setPeopleWeightSum(double new_people_weight_sum) {
-    if (new_people_weight_sum < 0 || new_people_weight_sum > this -> CarMaxWeight - this -> CarSelfWeight) throw std::out_of_range("New people weight sum value is incorrect");
-    this -> PeopleWeightSum = new_people_weight_sum;
+    if (new_people_weight_sum < 0 || new_people_weight_sum > CarMaxWeight - CarSelfWeight) throw std::out_of_range("New people weight sum value is incorrect");
+    PeopleWeightSum = new_people_weight_sum;
 }
 
 void Car::setFuelAmount(double new_fuel_amount) {
-    if (new_fuel_amount < 0 || new_fuel_amount > this -> FuelAmount) throw std::out_of_range("Fuel amount out of range");
-    this -> FuelAmount = new_fuel_amount;
+    if (new_fuel_amount < 0 || new_fuel_amount > FuelCapacity) throw std::out_of_range("Fuel amount out of range");
+    FuelAmount = new_fuel_amount;
 }
 
 double Car::calculateDistance() const {

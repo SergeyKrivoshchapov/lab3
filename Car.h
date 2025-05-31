@@ -24,6 +24,7 @@ public:
     ~Car();
     Car Сar(const Car&) = delete;
     Car& operator=(const Car&) = delete;
+    Car() = delete;
     Car(Car&& other_car) noexcept;
 
     std::string getBrand() const;
