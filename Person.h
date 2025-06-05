@@ -3,10 +3,10 @@
 #include <stdexcept>
 
 class Person {
-    private:
+private:
     std::string Name;
     double Weight;
-    public:
+public:
     Person(std::string& name, double weight);
 
     std::string getName() const;

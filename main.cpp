@@ -48,19 +48,7 @@ int main() {
         Car1.dropAll();
         std::cout << "New people count: " << Car1.getPeopleCount() << std::endl;
         std::cout << "New distance: " << Car1.calculateDistance() << "km" << std::endl;
-/*
-        Car Moved(std::move(Car1));
-        std::cout << "Moved car id: " << Moved.getId() << std::endl;
-        try {
-            std::cout << "Original car id (not expected)" << Car1.getId() << std::endl;
-        } catch (const std::exception& e) {
-            std::cout << "Original car is empty (expected)" << std::endl;
-        }
-*/
-/*
-        try { Car InvId(brand, model, year, fuel_type, self_weight, max_weight, people_capacity, power, fuel_amount, fuel_capacity, fuel_consumption, id);
-        } catch (const std::exception& e) { std::cout << e.what() <<  std::endl; }
-*/
+
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl;
         return 1;

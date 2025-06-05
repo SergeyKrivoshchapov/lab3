@@ -79,12 +79,34 @@ void Car::addPerson(const Person &person) {
     double new_people_weight_sum = getPeopleWeightSum() + person.getWeight();
     if (new_people_weight_sum > CarMaxWeight) throw std::out_of_range("Car max weight reached in car");
 
-    if (People.find(person.getName()) != People.end()) throw std::invalid_argument("People already in car");
-
-    People.insert({person.getName(), person});
+    People.push_back(person);
 }
 
+void Car::removePerson(const std::string& fullName) {
+    auto it = std::find_if(People.begin(), People.end(),
+        [&fullName](const Person& p) { return p.getName() == fullName; });
+
+    if (it != People.end()) {
+        People.erase(it);
+    } else {
+        throw std::invalid_argument("No such person in car");
+    }
+}
+
+void Car::removePerson(const std::string& fullName, double weight) {
+    auto it = std::find_if(People.begin(), People.end(),
+        [&fullName, weight](const Person& p) {
+            return p.getName() == fullName && p.getWeight() == weight;
+        });
+
+    if (it != People.end()) {
+        People.erase(it);
+    } else {
+        throw std::invalid_argument("Person with given name and weight not found in the car");
+    }
+}
 
 void Car::dropAll() {
     People.clear();
 }
+

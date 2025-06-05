@@ -19,7 +19,7 @@ private:
     double FuelCapacity;
     double FuelConsumption;
     std::string Id;
-    std::vector<std::string, double> People;
+    std::vector<Person> People;
 public:
     Car(std::string& brand, std::string& model, int production_year, std::string& fuel_type, double car_self_weight, double car_max_weight, int people_capacity,
         double power, double fuel_amount, double fuel_capacity, double fuel_consumption, std::string& id);
@@ -49,6 +49,7 @@ public:
 
     void addPerson(const Person& person);
     void removePerson(const std::string& name);
+    void removePerson(const std::string& name, double weight);
     std::vector<Person> getPersons() const;
     double getPeopleWeightSum() const;
     int getPeopleCount();
