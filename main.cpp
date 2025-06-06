@@ -32,11 +32,17 @@ int main() {
         car1.addPerson(john1);
         car1.addPerson(john2);
         car1.addPerson(andrew);
+        std::cout << "added" << std::endl;
         car1.printPeopleList();
 
+        std::cout << "removed by name" << std::endl;
         car1.removePerson("John Smith");
         car1.printPeopleList();
+        std::cout << "removed by name and weight" << std::endl;
         car1.removePerson("John Smith", 75);
+        car1.printPeopleList();
+        car1.dropAll();
+        std::cout << "dropped all" << std::endl;
         car1.printPeopleList();
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
