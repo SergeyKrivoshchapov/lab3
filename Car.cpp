@@ -1,6 +1,7 @@
 #include "Car.h"
 #include <stdexcept>
 #include <chrono>
+#include <iostream>
 
 Car::Car(std::string& brand, std::string& model, int production_year, std::string& fuel_type, double car_self_weight, double car_max_weight,
     int people_capacity, double power, double fuel_amount, double fuel_capacity, double fuel_consumption, std::string& id) :
@@ -46,8 +47,12 @@ Car::Car(Car &&other_car) noexcept :
     FuelAmount(other_car.FuelAmount),
     FuelCapacity(other_car.FuelCapacity),
     FuelConsumption(other_car.FuelConsumption),
+    People(std::move(other_car.People)),
     Id(std::move(other_car.Id)) {
     other_car.Id = "";
+    {
+        other_car.People.clear();
+    }
 }
 
 std::string Car::getBrand() const { return Brand; }
@@ -69,7 +74,7 @@ void Car::setFuelAmount(double new_fuel_amount) {
 }
 
 double Car::calculateDistance() const {
-    double distance = (FuelAmount * Power * CarSelfWeight * FuelConsumption) / (100 * Power * (CarSelfWeight + PeopleWeightSum));
+    double distance = (FuelAmount * Power * CarSelfWeight * FuelConsumption) / (100 * Power * (CarSelfWeight + getPeopleWeightSum()));
     return distance;
 }
 
@@ -79,7 +84,7 @@ void Car::addPerson(const Person &person) {
     double new_people_weight_sum = getPeopleWeightSum() + person.getWeight();
     if (new_people_weight_sum > CarMaxWeight) throw std::out_of_range("Car max weight reached in car");
 
-    People.push_back(person);
+    People.emplace_back(person.getName(), person.getWeight());
 }
 
 void Car::removePerson(const std::string& fullName) {
@@ -110,3 +115,26 @@ void Car::dropAll() {
     People.clear();
 }
 
+std::vector<Person> Car::getPersons() const {
+    return People;
+}
+
+double Car::getPeopleWeightSum() const {
+    double sum = 0;
+    for (const auto& person : People) {
+        sum += person.getWeight();
+    }
+    return sum;
+}
+
+void Car::printPeopleList() const {
+    if (People.empty()) {
+        std::cout << "The car is empty" << std::endl;
+        return;
+    }
+
+    std::cout << "People in the car: " << std::endl;
+    for (const auto& person : People) {
+        std::cout << person.getName() << " " << person.getWeight() << " kg" << std::endl;
+    }
+}

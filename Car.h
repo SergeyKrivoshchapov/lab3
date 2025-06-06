@@ -35,7 +35,6 @@ public:
     std::string getFuelType() const;
     double getCarSelfWeight() const;
     double getCarMaxWeight() const;
-    int getPeopleCount() const;
     int getPeopleCapacity() const;
     double getPower() const;
     double getFuelAmount() const;
@@ -52,5 +51,5 @@ public:
     void removePerson(const std::string& name, double weight);
     std::vector<Person> getPersons() const;
     double getPeopleWeightSum() const;
-    int getPeopleCount();
+    void printPeopleList() const;
 };

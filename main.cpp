@@ -9,49 +9,39 @@ int main() {
     try {
         std::string brand = "Volvo";
         std::string model = "XC90";
-        int year = 2022;
+        std::string id = "3141592";
+        int production_year = 2022;
         std::string fuel_type = "Diesel";
-        double self_weight = 2100;
-        double max_weight = 2800;
-        int people_capacity= 7;
+        double car_self_weight = 2100;
+        double car_max_weight = 2800;
+        int people_capacity = 7;
         double power = 235;
         double fuel_amount = 70;
         double fuel_capacity = 80;
         double fuel_consumption = 7.2;
-        std::string id = "3141592";
+        Car car1(brand, model, production_year, fuel_type, car_self_weight, car_max_weight, people_capacity,
+                 power, fuel_amount, fuel_capacity, fuel_consumption, id);
 
-        Car Car1(brand, model, year, fuel_type, self_weight, max_weight, people_capacity, power, fuel_amount, fuel_capacity, fuel_consumption, id);
+        std::string john1_name = "John Smith";
+        std::string john2_name = "John Smith";
+        std::string andrew_name = "Andrew Smith";
+        Person john1(john1_name, 85);
+        Person john2(john2_name, 75);
+        Person andrew(andrew_name, 65);
 
-        std::cout << "Car1 created" << std::endl;
-        std::cout << "Brand: " << Car1.getBrand() << std::endl;
-        std::cout << "Model: " << Car1.getModel() << std::endl;
-        std::cout << "Production start year: " << Car1.getProductionYear() << std::endl;
-        std::cout << "Fuel type: " << Car1.getFuelType() << std::endl;
-        std::cout << "Self weight: " << Car1.getCarSelfWeight() << "kg" << std::endl;
-        std::cout << "Max weight: " << Car1.getCarMaxWeight() << "kg" << std::endl;
-        std::cout << "People capacity: " << Car1.getPeopleCapacity() << std::endl;
-        std::cout << "Power: " << Car1.getPower() << "hp" << std::endl;
-        std::cout << "Fuel amount: " << Car1.getFuelAmount() << "l" << std::endl;
-        std::cout << "Fuel capacity: " << Car1.getFuelCapacity() << "l" << std::endl;
-        std::cout << "Fuel consumption: " << Car1.getFuelConsumption() << "l/100km"<< std::endl;
-        std::cout << "Id: " << Car1.getId() << std::endl;
+        car1.addPerson(john1);
+        car1.addPerson(john2);
+        car1.addPerson(andrew);
+        car1.printPeopleList();
 
-        Car1.setPeopleCount(3);
-        Car1.setPeopleWeightSum(250);
-        std::cout << "People count: " << Car1.getPeopleCount() << std::endl;
-        std::cout << "People summary weight: " << Car1.getPeopleWeightSum() << "kg" << std::endl;
-        std::cout << "Distance: " << Car1.calculateDistance() << "km" << std::endl;
-        Car1.setFuelAmount(30);
-        std::cout << "New fuel amount: " << Car1.getFuelAmount() << "l" << std::endl;
-        std::cout << "New distance: " << Car1.calculateDistance() << "km" << std::endl;
-
-        Car1.dropAll();
-        std::cout << "New people count: " << Car1.getPeopleCount() << std::endl;
-        std::cout << "New distance: " << Car1.calculateDistance() << "km" << std::endl;
-
+        car1.removePerson("John Smith");
+        car1.printPeopleList();
+        car1.removePerson("John Smith", 75);
+        car1.printPeopleList();
     } catch (const std::exception& e) {
-        std::cout << "Exception: " << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << std::endl;
         return 1;
     }
+
     return 0;
 }
